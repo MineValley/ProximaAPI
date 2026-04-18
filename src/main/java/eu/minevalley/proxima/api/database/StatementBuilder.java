@@ -1,6 +1,6 @@
 package eu.minevalley.proxima.api.database;
 
-import eu.minevalley.proxima.api.Proxima;
+import eu.minevalley.proxima.api.Proxy;
 import org.intellij.lang.annotations.Language;
 import org.jetbrains.annotations.Contract;
 
@@ -24,7 +24,7 @@ import java.sql.*;
  * }
  * </pre>
  *
- * @see Proxima#prepareSQL(String)
+ * @see Proxy#prepareSQL(String)
  * @see PreparedStatement
  * @see ResultSet
  */
