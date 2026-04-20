@@ -15,9 +15,6 @@ Before proceeding, ensure you’ve added a token to your `settings.xml` file (de
 <repository>
     <id>proxima-api</id>
     <url>https://maven.pkg.github.com/MineValley/ProximaAPI</url>
-    <snapshots>
-        <enabled>true</enabled>
-    </snapshots>
 </repository>
 ```
 
