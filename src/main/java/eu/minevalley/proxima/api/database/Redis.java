@@ -6,7 +6,7 @@ import redis.clients.jedis.JedisPooled;
 import javax.annotation.Nonnull;
 
 @SuppressWarnings("unused")
-public class Redis {
+public final class Redis {
 
     @Getter(onMethod_ = {@Nonnull})
     private static JedisPooled commandPool;
