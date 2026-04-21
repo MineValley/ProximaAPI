@@ -1,6 +1,7 @@
 package eu.minevalley.proxima.api.user;
 
 import eu.minevalley.proxima.api.audio.SoundReceiver;
+import eu.minevalley.proxima.api.fraction.Fraction;
 import eu.minevalley.proxima.api.localization.PlayerLocation;
 import eu.minevalley.proxima.api.messaging.DialogReceiver;
 import eu.minevalley.proxima.api.messaging.MessageReceiver;
@@ -10,7 +11,6 @@ import eu.minevalley.proxima.api.user.chat.ChatType;
 import eu.minevalley.proxima.api.user.exception.UserNotPermittedException;
 import eu.minevalley.proxima.api.user.statistics.McVersion;
 import eu.minevalley.proxima.api.user.team.TeamMember;
-import org.apache.commons.lang3.math.Fraction;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Contract;
 
