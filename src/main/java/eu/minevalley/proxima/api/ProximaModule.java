@@ -7,7 +7,7 @@ import javax.annotation.Nonnull;
 
 @SuppressWarnings("unused")
 @RequiredArgsConstructor
-public abstract class ProximaModule {
+public abstract class ProximaModule extends AbstractModule {
 
     private final @Nonnull Proxima proxima;
 
@@ -20,27 +20,6 @@ public abstract class ProximaModule {
     @Contract(pure = true)
     public final Proxima proxima() {
         return proxima;
-    }
-
-    /**
-     * Is called when the module is enabled.
-     */
-    public void onEnable() {
-        // override this method to add logic
-    }
-
-    /**
-     * Is called when the module is disabled.
-     */
-    public void onDisable() {
-        // override this method to add logic
-    }
-
-    /**
-     * Is called then the server starts with the cleanup flag.
-     */
-    public void onCleanup() {
-        // override this method to add logic
     }
 
     /**

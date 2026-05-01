@@ -50,7 +50,7 @@ public interface Proxima {
      */
     @Nonnull
     @Contract(pure = true)
-    String getVersion(@Nonnull ProximaModule module) throws IllegalArgumentException;
+    String getVersion(@Nonnull AbstractModule module) throws IllegalArgumentException;
 
     /**
      * Gets the developers of a specific module.
@@ -61,7 +61,7 @@ public interface Proxima {
      */
     @Nonnull
     @Contract(pure = true)
-    Developer[] getDevelopers(@Nonnull ProximaModule module) throws IllegalArgumentException;
+    Developer[] getDevelopers(@Nonnull AbstractModule module) throws IllegalArgumentException;
 
     /**
      * Gets the user of with a specific unique id.
