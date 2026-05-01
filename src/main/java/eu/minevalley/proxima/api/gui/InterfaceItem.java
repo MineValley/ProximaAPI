@@ -1,6 +1,6 @@
 package eu.minevalley.proxima.api.gui;
 
-import eu.minevalley.proxima.api.Proxima;
+import eu.minevalley.proxima.api.ProximaLegacy;
 import eu.minevalley.proxima.api.item.ItemBuilder;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -217,7 +217,7 @@ public enum InterfaceItem {
      * @return interface-item as item-builder
      */
     public ItemBuilder getBuilder() {
-        return Proxima.createItem(Material.GRAY_STAINED_GLASS_PANE)
+        return ProximaLegacy.createItem(Material.GRAY_STAINED_GLASS_PANE)
                 .setItemModel(new NamespacedKey("minevalley", itemModel))
                 .setHideToolTip(true).setDisplayName(Component.empty());
     }

@@ -23,8 +23,6 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Contract;
 
 import javax.annotation.Nonnegative;
@@ -39,23 +37,7 @@ import java.util.Locale;
 import java.util.UUID;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
-public final class Proxima {
-
-    private static ProximaProvider provider;
-    private static Proxy proxy;
-
-    /**
-     * Get the JavaPlugin instance of CorePlugin.
-     * <br>
-     * This gives you access to some Bukkit features that rely on this instance.
-     *
-     * @return JavaPlugin instance of CorePlugin
-     */
-    @Nonnull
-    @Contract(pure = true)
-    public static JavaPlugin getInstance() {
-        return provider.getInstance();
-    }
+public interface Proxima {
 
     /**
      * Get the {@link Proxy} object, granting access to all proxy-related features.
@@ -64,9 +46,7 @@ public final class Proxima {
      */
     @Nonnull
     @Contract(pure = true)
-    public static Proxy proxy() {
-        return proxy;
-    }
+    Proxy proxy();
 
     /**
      * Gets the user of with a specific unique id.
@@ -78,9 +58,7 @@ public final class Proxima {
      */
     @Nullable
     @Contract("null -> null")
-    public static User getUser(@Nullable UUID uniqueId) {
-        return provider.getUser(uniqueId);
-    }
+    User getUser(@Nullable UUID uniqueId);
 
     /**
      * Gets the name of the player with the specific unique id.
@@ -99,9 +77,7 @@ public final class Proxima {
      */
     @Nullable
     @Contract("null -> null")
-    public static String getName(@Nullable UUID uniqueId) {
-        return provider.getName(uniqueId);
-    }
+    String getName(@Nullable UUID uniqueId);
 
     /**
      * Gets the unique id of the player with the specific name.
@@ -119,9 +95,7 @@ public final class Proxima {
      */
     @Nullable
     @Contract("null -> null")
-    public static UUID getUniqueId(@Nullable String name) {
-        return provider.getUniqueId(name);
-    }
+    UUID getUniqueId(@Nullable String name);
 
     /**
      * The team interface gives you access to all team-related features.
@@ -130,9 +104,7 @@ public final class Proxima {
      */
     @Nonnull
     @Contract(pure = true)
-    public static Team team() {
-        return provider.team();
-    }
+    Team team();
 
     /**
      * Sends a debug message to the console and to every online team-member that enabled this debug type.
@@ -141,9 +113,7 @@ public final class Proxima {
      * @param message message as string
      * @throws IllegalArgumentException if the type or message is null
      */
-    public static void sendDebug(@Nonnull DebugType type, @Nonnull String message) throws IllegalArgumentException {
-        provider.sendDebug(type, message);
-    }
+    void sendDebug(@Nonnull DebugType type, @Nonnull String message);
 
     /**
      * Checks whether the given string contains a forbidden word.
@@ -152,9 +122,7 @@ public final class Proxima {
      * @return true, if string contains forbidden words
      */
     @Contract(value = "null -> false", pure = true)
-    public static boolean containsForbiddenWords(@Nullable String text) {
-        return provider.containsForForbiddenWords(text);
-    }
+    boolean containsForForbiddenWords(@Nullable String text);
 
     /**
      * Converts a string to a transparent string.
@@ -165,10 +133,17 @@ public final class Proxima {
      */
     @Nullable
     @Contract(value = "null -> null", pure = true)
-    public static String convertToTransparent(@Nullable String text) {
-        return provider.convertToTransparent(text);
-    }
+    String convertToTransparent(@Nullable String text);
 
+    /**
+     * Converts the given hex color code (with or without #) to a decimal color code.
+     *
+     * @param hex hex color code
+     * @return decimal color code
+     * @throws IllegalArgumentException if the hex color code is invalid or null
+     */
+    @Contract(pure = true)
+    int convertHexToDecimalColor(@Nonnull String hex) throws IllegalArgumentException;
 
     /**
      * Gets the registrant object that is represented by the specific string.
@@ -178,9 +153,7 @@ public final class Proxima {
      */
     @Nullable
     @Contract(value = "null -> null", pure = true)
-    public static Registrant getRegistrant(@Nullable String id) {
-        return provider.getRegistrant(id);
-    }
+    Registrant getRegistrant(@Nullable String id);
 
     /**
      * Get all groups.
@@ -189,9 +162,7 @@ public final class Proxima {
      */
     @Nonnull
     @Contract(pure = true)
-    public static List<Group> getGroups() {
-        return provider.getGroups();
-    }
+    List<Group> getGroups();
 
     /**
      * Gets the group (organization/company) with the specific name.
@@ -201,9 +172,7 @@ public final class Proxima {
      */
     @Nullable
     @Contract(value = "null -> null", pure = true)
-    public static Group getGroup(@Nullable String name) {
-        return provider.getGroup(name);
-    }
+    Group getGroup(String name);
 
     /**
      * Creates a new group of type 'Einzelunternehmen' with the given owner.
@@ -214,9 +183,7 @@ public final class Proxima {
      */
     @Nonnull
     @Contract("_ -> new")
-    public static Einzelunternehmen createEinzelunternehmen(@Nonnull User owner) throws IllegalArgumentException {
-        return provider.createEinzelunternehmen(owner);
-    }
+    Einzelunternehmen createEinzelunternehmen(@Nonnull User owner) throws IllegalArgumentException;
 
     /**
      * Creates a new group of type 'Personengesellschaft' with the given owner and co-owners.
@@ -228,9 +195,7 @@ public final class Proxima {
      */
     @Nonnull
     @Contract("_, _ -> new")
-    public static Personengesellschaft createPersonengesellschaft(@Nonnull User owner, @Nonnull List<User> coOwners) throws IllegalArgumentException {
-        return provider.createPersonengesellschaft(owner, coOwners);
-    }
+    Personengesellschaft createPersonengesellschaft(@Nonnull User owner, @Nonnull List<User> coOwners) throws IllegalArgumentException;
 
     /**
      * Creates a new group of type 'Kapitalgesellschaft' with the given address.
@@ -241,10 +206,7 @@ public final class Proxima {
      */
     @Nonnull
     @Contract("_ -> new")
-    @ApiStatus.Experimental
-    public static Kapitalgesellschaft createKapitalgesellschaft(int address) throws IllegalArgumentException {
-        return provider.createKapitalgesellschaft(address);
-    }
+    Kapitalgesellschaft createKapitalgesellschaft(int address) throws IllegalArgumentException;
 
     /**
      * Creates a new group of type 'Aktiengesellschaft' with the given address and stocks.
@@ -256,9 +218,7 @@ public final class Proxima {
      */
     @Nonnull
     @Contract("_, _ -> new")
-    public static Aktiengesellschaft createAktiengesellschaft(int address, int stocks) throws IllegalArgumentException {
-        return provider.createAktiengesellschaft(address, stocks);
-    }
+    Aktiengesellschaft createAktiengesellschaft(int address, int stocks) throws IllegalArgumentException;
 
     /**
      * Creates a new group of type 'Staat' with the given address.
@@ -269,10 +229,7 @@ public final class Proxima {
      */
     @Nonnull
     @Contract("_, _ -> new")
-    public static StateCompany createStateCompany(int address, @Nonnull StateCompany.Sector sector) throws IllegalArgumentException {
-        return provider.createStateCompany(address, sector);
-    }
-
+    StateCompany createStateCompany(int address, @Nonnull StateCompany.Sector sector) throws IllegalArgumentException;
 
     /**
      * Gets all state companies.
@@ -281,21 +238,17 @@ public final class Proxima {
      */
     @Nonnull
     @Contract(pure = true)
-    public static List<StateCompany> getStateCompanies() {
-        return provider.getStateCompanies();
-    }
+    List<StateCompany> getStateCompanies();
 
     /**
-     * Creates a {@link Gson} instance that fits in a page for pretty printing.
+     * Gets a pregenerated {@link Gson} instance that fits for pretty printing.
      * Use this to convert json-strings to specific objects and vice versa.
      *
-     * @return an instance of Gson configured that fits in a page for pretty printing
+     * @return an instance of Gson configured that fits for pretty printing
      */
     @Nonnull
     @Contract(pure = true)
-    public static Gson getGson() {
-        return provider.getGson();
-    }
+    Gson getGson();
 
     /**
      * Gets a random integer with the given length.
@@ -305,9 +258,7 @@ public final class Proxima {
      * @throws IllegalArgumentException if the chars are less than 1
      */
     @Contract(pure = true)
-    public static int getRandomInteger(int chars) throws IllegalArgumentException {
-        return provider.getRandomInteger(chars);
-    }
+    int getRandomInteger(int chars) throws IllegalArgumentException;
 
     /**
      * Checks whether the given string is numeric and can be converted to an integer.
@@ -318,9 +269,7 @@ public final class Proxima {
      * @return true, if the given string is numeric
      */
     @Contract(value = "null -> false", pure = true)
-    public static boolean isInteger(@Nullable String string) {
-        return provider.isInteger(string);
-    }
+    boolean isInteger(@Nullable String string);
 
     /**
      * Verifies that the given string is numeric and can be converted to a double.
@@ -329,9 +278,7 @@ public final class Proxima {
      * @return true, if the given string is numeric
      */
     @Contract(value = "null -> false", pure = true)
-    public static boolean isDouble(@Nullable String string) {
-        return provider.isDouble(string);
-    }
+    boolean isDouble(@Nullable String string);
 
     /**
      * Creates a readable string of the specific amount of money.
@@ -341,9 +288,7 @@ public final class Proxima {
      */
     @Nonnull
     @Contract(pure = true)
-    public static String formatMoney(int amountInCents) {
-        return provider.formatMoney(amountInCents);
-    }
+    String formatMoney(int amountInCents);
 
     /**
      * Formats the given time in a readable way.
@@ -353,7 +298,7 @@ public final class Proxima {
      */
     @Nonnull
     @Contract(pure = true)
-    public static String getFormattedDate(long time) {
+    default String getFormattedDate(long time) {
         return new SimpleDateFormat("dd. MMMM yyyy - HH:mm", Locale.GERMANY).format(new Date(time)) + " Uhr";
     }
 
@@ -365,9 +310,7 @@ public final class Proxima {
      */
     @Nonnull
     @Contract(pure = true)
-    public static String formatRelativeTimestamp(long timestamp) {
-        return provider.formatRelativeTimestamp(timestamp);
-    }
+    String formatRelativeTimestamp(long timestamp);
 
     /**
      * Formats the current time in a readable way.
@@ -376,7 +319,7 @@ public final class Proxima {
      */
     @Nonnull
     @Contract(pure = true)
-    public static String getCurrentTimeFormatted() {
+    default String getCurrentTimeFormatted() {
         return getFormattedDate(System.currentTimeMillis());
     }
 
@@ -387,7 +330,7 @@ public final class Proxima {
      */
     @Nonnull
     @Contract(pure = true)
-    public static String getCurrentDayTimeFormatted() {
+    default String getCurrentDayTimeFormatted() {
         return getFormattedTime(System.currentTimeMillis());
     }
 
@@ -399,7 +342,7 @@ public final class Proxima {
      */
     @Nonnull
     @Contract(pure = true)
-    public static String getFormattedTime(long time) {
+    default String getFormattedTime(long time) {
         return new SimpleDateFormat("HH:mm", Locale.GERMANY).format(new Date(time)) + " Uhr";
     }
 
@@ -412,9 +355,7 @@ public final class Proxima {
      */
     @Nonnull
     @Contract("_ -> new")
-    public static ItemBuilder createItem(@Nonnull ItemStack itemStack) throws IllegalArgumentException {
-        return provider.createItem(itemStack);
-    }
+    ItemBuilder createItem(@Nonnull ItemStack itemStack) throws IllegalArgumentException;
 
     /**
      * Creates a new item-builder based on a specific material.
@@ -425,9 +366,7 @@ public final class Proxima {
      */
     @Nonnull
     @Contract("_ -> new")
-    public static ItemBuilder createItem(@Nonnull Material material) throws IllegalArgumentException {
-        return provider.createItem(material);
-    }
+    ItemBuilder createItem(@Nonnull Material material) throws IllegalArgumentException;
 
     /**
      * Creates a new item-builder from the players head.
@@ -438,22 +377,7 @@ public final class Proxima {
      */
     @Nonnull
     @Contract("_ -> new")
-    public static ItemBuilder createItem(@Nonnull Player player) throws IllegalArgumentException {
-        return provider.createItem(player);
-    }
-
-    /**
-     * Creates a new item-builder from the players head.
-     *
-     * @param user user whose head is wanted
-     * @return new item-builder
-     * @throws IllegalArgumentException if the user is null
-     */
-    @Nonnull
-    @Contract("_ -> new")
-    public static ItemBuilder createItem(@Nonnull User user) throws IllegalArgumentException {
-        return provider.createItem(user.getPlayerHead());
-    }
+    ItemBuilder createItem(@Nonnull Player player) throws IllegalArgumentException;
 
     /**
      * Creates a new item-builder from the players head based on its unique id.
@@ -464,9 +388,7 @@ public final class Proxima {
      */
     @Nonnull
     @Contract("_ -> new")
-    public static ItemBuilder createItem(@Nonnull UUID uniqueId) throws IllegalArgumentException {
-        return provider.createItem(uniqueId);
-    }
+    ItemBuilder createItem(@Nonnull UUID uniqueId) throws IllegalArgumentException;
 
     /**
      * Creates a new item-builder based on the given value and signature.
@@ -478,9 +400,7 @@ public final class Proxima {
      */
     @Nonnull
     @Contract("_, _ -> new")
-    public static ItemBuilder createItem(@Nonnull String value, @Nonnull String signature) throws IllegalArgumentException {
-        return provider.createItem(value, signature);
-    }
+    ItemBuilder createItem(@Nonnull String value, @Nonnull String signature) throws IllegalArgumentException;
 
     /**
      * Creates new item-builder out of a custom head, based on its link.
@@ -499,9 +419,7 @@ public final class Proxima {
      */
     @Nonnull
     @Contract("_ -> new")
-    public static ItemBuilder createItem(@Nonnull String url) throws IllegalArgumentException {
-        return provider.createItem(url);
-    }
+    ItemBuilder createItem(String url) throws IllegalArgumentException;
 
     /**
      * Creates a gui with a specific size.
@@ -512,9 +430,7 @@ public final class Proxima {
      */
     @Nonnull
     @Contract("_, _ -> new")
-    public static InventoryGui createGui(@Nonnull Component title, @Nonnegative int size) throws IllegalArgumentException {
-        return provider.createGUI(title, size);
-    }
+    InventoryGui createGUI(@Nonnull Component title, @Nonnegative int size) throws IllegalArgumentException;
 
     /**
      * Creates a gui with multiple pages and a specific size.
@@ -533,9 +449,7 @@ public final class Proxima {
      */
     @Nonnull
     @Contract("_, _, _ -> new")
-    public static MultiPageGui createMultiPageGui(@Nonnull Component title, @Nonnegative int size, @Nonnull List<FillItem> fillItems) throws IllegalArgumentException {
-        return provider.createMultiPageGui(title, size, fillItems);
-    }
+    MultiPageGui createMultiPageGui(@Nonnull Component title, @Nonnegative int size, @Nonnull List<FillItem> fillItems) throws IllegalArgumentException;
 
     /**
      * Gets the bank account with the specific iban.
@@ -545,9 +459,7 @@ public final class Proxima {
      */
     @Nullable
     @Contract(value = "null -> null", pure = true)
-    public static BankAccount getBankAccount(@Nullable String iban) {
-        return provider.getBankAccount(iban);
-    }
+    BankAccount getBankAccount(@Nullable String iban);
 
     /**
      * Gets the bank account with the specific bank card.
@@ -557,9 +469,7 @@ public final class Proxima {
      */
     @Nullable
     @Contract(value = "null -> null", pure = true)
-    public static BankAccount getBankAccount(@Nullable ItemStack bankCard) {
-        return provider.getBankAccount(bankCard);
-    }
+    BankAccount getBankAccount(@Nullable ItemStack bankCard);
 
     /**
      * Creates a new bank account with the given holder.
@@ -570,9 +480,7 @@ public final class Proxima {
      */
     @Nonnull
     @Contract("_ -> new")
-    public static BankAccount createBankAccount(@Nonnull Registrant holder) throws IllegalArgumentException {
-        return provider.createBankAccount(holder);
-    }
+    BankAccount createBankAccount(Registrant holder) throws IllegalArgumentException;
 
     /**
      * Gets the telephone with the specific telephone number.
@@ -582,9 +490,7 @@ public final class Proxima {
      */
     @Nullable
     @Contract(value = "null -> null", pure = true)
-    public static Telephone getTelephone(@Nullable String telephoneNumber) {
-        return provider.getTelephone(telephoneNumber);
-    }
+    Telephone getTelephone(@Nullable String telephoneNumber);
 
     /**
      * Starts a timer with the specific parameters.
@@ -596,9 +502,7 @@ public final class Proxima {
      */
     @Nonnull
     @Contract("_, _ -> new")
-    public static Timer startTimer(int delay, @Nonnull Runnable callback) throws IllegalArgumentException {
-        return provider.startTimer(delay, callback);
-    }
+    Timer startTimer(int delay, @Nonnull Runnable callback) throws IllegalArgumentException;
 
     /**
      * Starts a repeating timer with the specific parameters.
@@ -613,10 +517,7 @@ public final class Proxima {
      */
     @Nonnull
     @Contract("_, _ -> new")
-    public static RepeatingTimer startRepeatingTimer(int period, @Nonnull Runnable callback)
-            throws IllegalArgumentException {
-        return provider.startRepeatingTimer(period, callback);
-    }
+    RepeatingTimer startRepeatingTimer(int period, @Nonnull Runnable callback) throws IllegalArgumentException;
 
     /**
      * Creates a reminder with the specific parameters.
@@ -630,10 +531,8 @@ public final class Proxima {
      */
     @Nonnull
     @Contract("_, _, _, _ -> new")
-    public static Reminder createReminder(int hours, int minutes, @Nonnull Runnable callback, DayOfWeek... weekdays)
-            throws IllegalArgumentException {
-        return provider.createReminder(hours, minutes, callback, weekdays);
-    }
+    Reminder createReminder(int hours, int minutes, @Nonnull Runnable callback, DayOfWeek... weekdays)
+            throws IllegalArgumentException;
 
     /**
      * Creates a reminder with the specific parameters.
@@ -646,9 +545,9 @@ public final class Proxima {
      */
     @Nonnull
     @Contract("_, _, _ -> new")
-    public static Reminder createReminder(@Nonnegative int hours, @Nonnegative int minutes, @Nonnull Runnable callback)
+    default Reminder createReminder(@Nonnegative int hours, @Nonnegative int minutes, @Nonnull Runnable callback)
             throws IllegalArgumentException {
-        return provider.createReminder(hours, minutes, callback, DayOfWeek.values());
+        return createReminder(hours, minutes, callback, DayOfWeek.values());
     }
 
     /**
@@ -658,9 +557,8 @@ public final class Proxima {
      * @param listener listener to register
      * @throws IllegalArgumentException if the event class or listener is null
      */
-    public static void registerListener(@Nonnull Class<? extends Event> cls, @Nonnull EventListener<? extends Event> listener) throws IllegalArgumentException {
-        provider.registerListener(cls, listener);
-    }
+    void registerListener(@Nonnull Class<? extends Event> cls, @Nonnull EventListener<? extends Event> listener)
+            throws IllegalArgumentException;
 
     /**
      * Unregisters an event listener.
@@ -669,9 +567,8 @@ public final class Proxima {
      * @param listener listener to unregister
      * @throws IllegalArgumentException if the event class or listener is null
      */
-    public static void unregisterListener(@Nonnull Class<? extends Event> cls, @Nonnull EventListener<? extends Event> listener) throws IllegalArgumentException {
-        provider.unregisterListener(cls, listener);
-    }
+    void unregisterListener(@Nonnull Class<? extends Event> cls, @Nonnull EventListener<? extends Event> listener)
+            throws IllegalArgumentException;
 
     /**
      * Creates a new Discord Webhook.
@@ -682,9 +579,7 @@ public final class Proxima {
      */
     @Nonnull
     @Contract("_ -> new")
-    public static Webhook createWebhook(@Nonnull URL url) throws IllegalArgumentException {
-        return provider.createWebhook(url);
-    }
+    Webhook createWebhook(@Nonnull URL url) throws IllegalArgumentException;
 
     /**
      * Creates an embedded message to be sent via webhook
@@ -693,7 +588,5 @@ public final class Proxima {
      */
     @Nonnull
     @Contract("-> new")
-    public static EmbeddedMessage createEmbeddedMessage() {
-        return provider.createEmbeddedMessage();
-    }
+    EmbeddedMessage createEmbeddedMessage();
 }
