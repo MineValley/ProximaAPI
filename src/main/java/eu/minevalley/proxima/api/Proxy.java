@@ -10,7 +10,6 @@ import java.util.stream.Stream;
 
 @SuppressWarnings("unused")
 public interface Proxy extends DatabaseHolder {
-
     /**
      * Gets a stream of all proxy users.
      *

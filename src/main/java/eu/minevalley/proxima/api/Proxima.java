@@ -7,10 +7,6 @@ import eu.minevalley.proxima.api.corporation.company.*;
 import eu.minevalley.proxima.api.discord.EmbeddedMessage;
 import eu.minevalley.proxima.api.discord.Webhook;
 import eu.minevalley.proxima.api.event.EventListener;
-import eu.minevalley.proxima.api.gui.FillItem;
-import eu.minevalley.proxima.api.gui.InventoryGui;
-import eu.minevalley.proxima.api.gui.MultiPageGui;
-import eu.minevalley.proxima.api.item.ItemBuilder;
 import eu.minevalley.proxima.api.messaging.types.DebugType;
 import eu.minevalley.proxima.api.phone.Telephone;
 import eu.minevalley.proxima.api.team.Team;
@@ -18,9 +14,6 @@ import eu.minevalley.proxima.api.timing.Reminder;
 import eu.minevalley.proxima.api.timing.RepeatingTimer;
 import eu.minevalley.proxima.api.timing.Timer;
 import eu.minevalley.proxima.api.user.User;
-import net.kyori.adventure.text.Component;
-import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Contract;
@@ -47,6 +40,28 @@ public interface Proxima {
     @Nonnull
     @Contract(pure = true)
     Proxy proxy();
+
+    /**
+     * Gets the version of a specific module.
+     *
+     * @param module the module to get the version from
+     * @return the version of the module
+     * @throws IllegalArgumentException if module is null
+     */
+    @Nonnull
+    @Contract(pure = true)
+    String getVersion(@Nonnull ProximaModule module) throws IllegalArgumentException;
+
+    /**
+     * Gets the developers of a specific module.
+     *
+     * @param module the module to get the developers from
+     * @return the developers of the module
+     * @throws IllegalArgumentException if module is null
+     */
+    @Nonnull
+    @Contract(pure = true)
+    Developer[] getDevelopers(@Nonnull ProximaModule module) throws IllegalArgumentException;
 
     /**
      * Gets the user of with a specific unique id.
@@ -345,111 +360,6 @@ public interface Proxima {
     default String getFormattedTime(long time) {
         return new SimpleDateFormat("HH:mm", Locale.GERMANY).format(new Date(time)) + " Uhr";
     }
-
-    /**
-     * Creates a new item-builder based on a specific material.
-     *
-     * @param itemStack itemstack the item-builder will base on
-     * @return new item-builder
-     * @throws IllegalArgumentException if the itemstack is null
-     */
-    @Nonnull
-    @Contract("_ -> new")
-    ItemBuilder createItem(@Nonnull ItemStack itemStack) throws IllegalArgumentException;
-
-    /**
-     * Creates a new item-builder based on a specific material.
-     *
-     * @param material material of the item to create
-     * @return new item-builder
-     * @throws IllegalArgumentException if the material is null
-     */
-    @Nonnull
-    @Contract("_ -> new")
-    ItemBuilder createItem(@Nonnull Material material) throws IllegalArgumentException;
-
-    /**
-     * Creates a new item-builder from the players head.
-     *
-     * @param player player whose head is wanted
-     * @return new item-builder
-     * @throws IllegalArgumentException if the player is null
-     */
-    @Nonnull
-    @Contract("_ -> new")
-    ItemBuilder createItem(@Nonnull Player player) throws IllegalArgumentException;
-
-    /**
-     * Creates a new item-builder from the players head based on its unique id.
-     *
-     * @param uniqueId unique id of the player whose head is wanted
-     * @return new item-builder
-     * @throws IllegalArgumentException if the unique id is null or no player is found matching the unique id
-     */
-    @Nonnull
-    @Contract("_ -> new")
-    ItemBuilder createItem(@Nonnull UUID uniqueId) throws IllegalArgumentException;
-
-    /**
-     * Creates a new item-builder based on the given value and signature.
-     *
-     * @param value     value of the item
-     * @param signature signature of the item
-     * @return new item-builder
-     * @throws IllegalArgumentException if the value or signature is null or no item could be created based on the given parameters
-     */
-    @Nonnull
-    @Contract("_, _ -> new")
-    ItemBuilder createItem(@Nonnull String value, @Nonnull String signature) throws IllegalArgumentException;
-
-    /**
-     * Creates new item-builder out of a custom head, based on its link.
-     * <p>
-     * Example - head from <a href="https://minecraft-heads.com/custom-heads">head-database</a>:
-     * The url to the head is:
-     * 68c2f1f7e8cd6b00d30f0edaeefce38e889173c30c701fac0da860e0a2125ec8
-     * <p>
-     * You can use this url to get the head. It doesn't matter whether you're using the whole link (starting with "textures.minecraft.net") or just using the number, as shown above.
-     * <p>
-     * Note: Always cache heads you already created! Getting/creating new heads can be a waste of server performance. A simple way to cash all heads used in inventories is to load the with the onEnable()-method.
-     *
-     * @param url link to <span style="text-decoration:underline;">or</span> the id of the specific head
-     * @return item-builder based on the chosen head
-     * @throws IllegalArgumentException if the url is null
-     */
-    @Nonnull
-    @Contract("_ -> new")
-    ItemBuilder createItem(String url) throws IllegalArgumentException;
-
-    /**
-     * Creates a gui with a specific size.
-     *
-     * @param size size of the inventory
-     * @return new gui-builder
-     * @throws IllegalArgumentException if the size is invalid (negative, higher than 54 or not a multiple of 9 while being higher than 6)
-     */
-    @Nonnull
-    @Contract("_, _ -> new")
-    InventoryGui createGUI(@Nonnull Component title, @Nonnegative int size) throws IllegalArgumentException;
-
-    /**
-     * Creates a gui with multiple pages and a specific size.
-     * <p>
-     * The title of the inventory holds two variables:
-     * <br>
-     * {@code %i%} will be replaced with the current page number
-     * <br>
-     * {@code %o%} will be replaced with the amount of pages
-     *
-     * @param title     title of the inventory
-     * @param size      size of the inventory
-     * @param fillItems items to fill the inventory with
-     * @return new gui-builder
-     * @throws IllegalArgumentException if the size is invalid (negative, higher than 54 or not a multiple of 9 while being higher than 6)
-     */
-    @Nonnull
-    @Contract("_, _, _ -> new")
-    MultiPageGui createMultiPageGui(@Nonnull Component title, @Nonnegative int size, @Nonnull List<FillItem> fillItems) throws IllegalArgumentException;
 
     /**
      * Gets the bank account with the specific iban.
