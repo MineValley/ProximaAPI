@@ -1,12 +1,12 @@
 package eu.minevalley.proxima.api.command;
 
-import eu.minevalley.proxima.api.user.ProxyUser;
+import eu.minevalley.proxima.api.user.User;
 import org.jetbrains.annotations.Contract;
 
 import javax.annotation.Nonnull;
 
 @SuppressWarnings("unused")
-public interface Context {
+public interface Context<U extends User> {
 
     /**
      * Gets the sender of the command.
@@ -15,7 +15,7 @@ public interface Context {
      */
     @Nonnull
     @Contract(pure = true)
-    ProxyUser getSender();
+    U getSender();
 
     /**
      * Get the argument with the given name and type.

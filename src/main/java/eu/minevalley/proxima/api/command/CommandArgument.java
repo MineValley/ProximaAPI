@@ -3,6 +3,7 @@ package eu.minevalley.proxima.api.command;
 import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
+import eu.minevalley.proxima.api.user.User;
 import org.jetbrains.annotations.Contract;
 
 import javax.annotation.Nonnull;
@@ -15,7 +16,7 @@ import java.util.function.BiFunction;
  * @param <T> the type of the argument
  */
 @SuppressWarnings("unused")
-public interface CommandArgument<T> extends CommandBuilder<CommandArgument<T>> {
+public interface CommandArgument<U extends User, T> extends CommandBuilder<U, CommandArgument<U, T>> {
 
     /**
      * Gets the name of the argument.
@@ -40,5 +41,6 @@ public interface CommandArgument<T> extends CommandBuilder<CommandArgument<T>> {
      */
     @Nonnull
     @Contract("_ -> this")
-    CommandArgument<T> suggests(@Nonnull BiFunction<Context, SuggestionsBuilder, CompletableFuture<Suggestions>> provider) throws IllegalArgumentException;
+    CommandArgument<U, T> suggests(@Nonnull BiFunction<Context<U>, SuggestionsBuilder, CompletableFuture<Suggestions>> provider)
+            throws IllegalArgumentException;
 }

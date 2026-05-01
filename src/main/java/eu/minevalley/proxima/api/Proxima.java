@@ -2,6 +2,7 @@ package eu.minevalley.proxima.api;
 
 import com.google.gson.Gson;
 import eu.minevalley.proxima.api.banking.BankAccount;
+import eu.minevalley.proxima.api.command.Commands;
 import eu.minevalley.proxima.api.corporation.Group;
 import eu.minevalley.proxima.api.corporation.company.*;
 import eu.minevalley.proxima.api.discord.EmbeddedMessage;
@@ -13,6 +14,7 @@ import eu.minevalley.proxima.api.team.Team;
 import eu.minevalley.proxima.api.timing.Reminder;
 import eu.minevalley.proxima.api.timing.RepeatingTimer;
 import eu.minevalley.proxima.api.timing.Timer;
+import eu.minevalley.proxima.api.user.ProxyUser;
 import eu.minevalley.proxima.api.user.User;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
@@ -459,6 +461,15 @@ public interface Proxima {
             throws IllegalArgumentException {
         return createReminder(hours, minutes, callback, DayOfWeek.values());
     }
+
+    /**
+     * Gets the command interface that can be used to register new commands.
+     *
+     * @return the command interface
+     */
+    @Nonnull
+    @Contract(pure = true)
+    Commands<ProxyUser> commands();
 
     /**
      * Registers an event listener.

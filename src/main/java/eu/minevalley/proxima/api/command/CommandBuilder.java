@@ -1,6 +1,7 @@
 package eu.minevalley.proxima.api.command;
 
 import eu.minevalley.proxima.api.user.ProxyUser;
+import eu.minevalley.proxima.api.user.User;
 import org.jetbrains.annotations.Contract;
 
 import javax.annotation.Nonnull;
@@ -8,7 +9,7 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 @SuppressWarnings("unused")
-public interface CommandBuilder<T extends CommandBuilder<T>> {
+public interface CommandBuilder<U extends User, T extends CommandBuilder<U, T>> {
 
     /**
      * Add a new branch to the command tree.
@@ -19,12 +20,12 @@ public interface CommandBuilder<T extends CommandBuilder<T>> {
      */
     @Nonnull
     @Contract("_ -> this")
-    T then(@Nonnull CommandBuilder<?> branch) throws IllegalArgumentException;
+    T then(@Nonnull CommandBuilder<?, ?> branch) throws IllegalArgumentException;
 
     /**
      * Sets whether the command can be executed by a given user.
      * <p>
-     * <b>Note:</b> For a change in the visibility of a command to take effect in tabbing behavior, the command must be reloaded for the user using {@link OnlineUser#updateCommands()}.
+     * <b>Note:</b> For a change in the visibility of a command to take effect in tabbing behavior, the command must be reloaded for the user using {@link ProxyUser#updateCommands()}.
      * </p>
      *
      * @param requirement the requirement to be met for the command to be executable for the user.
@@ -34,7 +35,7 @@ public interface CommandBuilder<T extends CommandBuilder<T>> {
      */
     @Nonnull
     @Contract("_ -> this")
-    T requires(@Nonnull Predicate<ProxyUser> requirement) throws IllegalArgumentException;
+    T requires(@Nonnull Predicate<U> requirement) throws IllegalArgumentException;
 
     /**
      * Defines what happens, whenever the command is caused correctly with someone with the required permissions.
@@ -44,5 +45,5 @@ public interface CommandBuilder<T extends CommandBuilder<T>> {
      */
     @Nonnull
     @Contract("_ -> this")
-    T executes(@Nonnull Consumer<Context> execution) throws IllegalArgumentException;
+    T executes(@Nonnull Consumer<Context<U>> execution) throws IllegalArgumentException;
 }

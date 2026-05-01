@@ -1,8 +1,7 @@
 package eu.minevalley.proxima.api.command;
 
 import com.mojang.brigadier.arguments.ArgumentType;
-import lombok.Setter;
-import org.jetbrains.annotations.ApiStatus;
+import eu.minevalley.proxima.api.user.User;
 import org.jetbrains.annotations.Contract;
 
 import javax.annotation.Nonnull;
@@ -11,10 +10,7 @@ import javax.annotation.Nonnull;
  * A utility class for creating commands.
  */
 @SuppressWarnings("unused")
-public final class Commands {
-
-    @Setter
-    private static CommandManager commandManager;
+public interface Commands<U extends User> {
 
     /**
      * @param name the name of the (sub-) command
@@ -23,9 +19,7 @@ public final class Commands {
      */
     @Nonnull
     @Contract(pure = true)
-    public static CommandLiteral literal(@Nonnull String name) throws IllegalArgumentException {
-        return commandManager.literal(name);
-    }
+    CommandLiteral<U> literal(@Nonnull String name) throws IllegalArgumentException;
 
     /**
      * Creates a new command argument.
@@ -38,19 +32,5 @@ public final class Commands {
      */
     @Nonnull
     @Contract(pure = true)
-    public static <T> CommandArgument<T> argument(@Nonnull String name, @Nonnull ArgumentType<T> type) throws IllegalArgumentException {
-        return commandManager.argument(name, type);
-    }
-
-    @ApiStatus.Internal
-    public interface CommandManager {
-
-        @Nonnull
-        @Contract(pure = true)
-        CommandLiteral literal(@Nonnull String name) throws IllegalArgumentException;
-
-        @Nonnull
-        @Contract(pure = true)
-        <T> CommandArgument<T> argument(@Nonnull String name, @Nonnull ArgumentType<T> type) throws IllegalArgumentException;
-    }
+    <T> CommandArgument<U, T> argument(@Nonnull String name, @Nonnull ArgumentType<T> type) throws IllegalArgumentException;
 }

@@ -1,5 +1,6 @@
 package eu.minevalley.proxima.api.command;
 
+import eu.minevalley.proxima.api.user.User;
 import org.jetbrains.annotations.Contract;
 
 import javax.annotation.Nonnull;
@@ -9,7 +10,7 @@ import javax.annotation.Nonnull;
  * It can be used to create the root command or any sub-command.
  */
 @SuppressWarnings("unused")
-public interface CommandLiteral extends CommandBuilder<CommandLiteral> {
+public interface CommandLiteral<U extends User> extends CommandBuilder<U, CommandLiteral<U>> {
 
     /**
      * Gets the literal.
