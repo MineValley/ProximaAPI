@@ -2,6 +2,7 @@ package eu.minevalley.proxima.api.command;
 
 import com.mojang.brigadier.arguments.ArgumentType;
 import eu.minevalley.proxima.api.corporation.Group;
+import eu.minevalley.proxima.api.fraction.Fraction;
 import eu.minevalley.proxima.api.server.ServerType;
 import eu.minevalley.proxima.api.user.User;
 import eu.minevalley.proxima.api.user.team.TeamRank;
@@ -11,14 +12,12 @@ import io.papermc.paper.command.brigadier.argument.resolvers.FinePositionResolve
 import lombok.Setter;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import org.apache.commons.lang3.math.Fraction;
 import org.bukkit.GameMode;
 import org.bukkit.block.BlockState;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Contract;
 
 import javax.annotation.Nonnull;
-import java.util.Set;
 
 @SuppressWarnings({"unused", "UnstableApiUsage"})
 public final class CustomArgumentTypes {
