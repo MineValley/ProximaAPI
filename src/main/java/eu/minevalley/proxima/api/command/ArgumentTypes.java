@@ -6,10 +6,8 @@ import eu.minevalley.proxima.api.fraction.Fraction;
 import eu.minevalley.proxima.api.server.ServerType;
 import eu.minevalley.proxima.api.user.User;
 import eu.minevalley.proxima.api.user.team.TeamRank;
-import io.papermc.paper.command.brigadier.argument.ArgumentTypes;
 import io.papermc.paper.command.brigadier.argument.resolvers.BlockPositionResolver;
 import io.papermc.paper.command.brigadier.argument.resolvers.FinePositionResolver;
-import lombok.Setter;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.GameMode;
@@ -20,10 +18,7 @@ import org.jetbrains.annotations.Contract;
 import javax.annotation.Nonnull;
 
 @SuppressWarnings({"unused", "UnstableApiUsage"})
-public final class CustomArgumentTypes {
-
-    @Setter
-    private static Manager manager;
+public interface ArgumentTypes {
 
     /**
      * Gets an argument type that resolves a single user based on a selector.
@@ -32,9 +27,7 @@ public final class CustomArgumentTypes {
      */
     @Nonnull
     @Contract(pure = true)
-    public static ArgumentType<User> user() {
-        return manager.user();
-    }
+    ArgumentType<User> user();
 
     /**
      * Gets an argument type that resolves a group.
@@ -43,9 +36,7 @@ public final class CustomArgumentTypes {
      */
     @Nonnull
     @Contract(pure = true)
-    public static ArgumentType<Group> group() {
-        return manager.group();
-    }
+    ArgumentType<Group> group();
 
     /**
      * Gets an argument type that resolves a fraction.
@@ -54,9 +45,7 @@ public final class CustomArgumentTypes {
      */
     @Nonnull
     @Contract(pure = true)
-    public static ArgumentType<Fraction> fraction() {
-        return manager.fraction();
-    }
+    ArgumentType<Fraction> fraction();
 
     /**
      * Gets an argument type that resolves a team rank.
@@ -65,9 +54,7 @@ public final class CustomArgumentTypes {
      */
     @Nonnull
     @Contract(pure = true)
-    public static ArgumentType<TeamRank> teamRank() {
-        return manager.teamRank();
-    }
+    ArgumentType<TeamRank> teamRank();
 
     /**
      * Gets an argument type that resolves a server type.
@@ -76,9 +63,7 @@ public final class CustomArgumentTypes {
      */
     @Nonnull
     @Contract(pure = true)
-    public static ArgumentType<ServerType> server() {
-        return manager.server();
-    }
+    ArgumentType<ServerType> server();
 
     /**
      * Gets an argument type that resolves a block state.
@@ -87,9 +72,7 @@ public final class CustomArgumentTypes {
      */
     @Nonnull
     @Contract(pure = true)
-    public static ArgumentType<BlockState> blockState() {
-        return ArgumentTypes.blockState();
-    }
+    ArgumentType<BlockState> blockState();
 
     /**
      * Gets an argument type that resolves an item stack.
@@ -98,9 +81,7 @@ public final class CustomArgumentTypes {
      */
     @Nonnull
     @Contract(pure = true)
-    public static ArgumentType<ItemStack> itemStack() {
-        return ArgumentTypes.itemStack();
-    }
+    ArgumentType<ItemStack> itemStack();
 
     /**
      * Gets an argument type that resolves a named text color.
@@ -109,9 +90,7 @@ public final class CustomArgumentTypes {
      */
     @Nonnull
     @Contract(pure = true)
-    public static ArgumentType<NamedTextColor> namedColor() {
-        return ArgumentTypes.namedColor();
-    }
+    ArgumentType<NamedTextColor> namedColor();
 
     /**
      * Gets an argument type that resolves a component.
@@ -120,9 +99,7 @@ public final class CustomArgumentTypes {
      */
     @Nonnull
     @Contract(pure = true)
-    public static ArgumentType<Component> component() {
-        return ArgumentTypes.component();
-    }
+    ArgumentType<Component> component();
 
     /**
      * Gets an argument type that resolves a game mode.
@@ -131,9 +108,7 @@ public final class CustomArgumentTypes {
      */
     @Nonnull
     @Contract(pure = true)
-    public static ArgumentType<GameMode> gameMode() {
-        return ArgumentTypes.gameMode();
-    }
+    ArgumentType<GameMode> gameMode();
 
     /**
      * Gets an argument type that resolves a time in ticks.
@@ -142,9 +117,7 @@ public final class CustomArgumentTypes {
      */
     @Nonnull
     @Contract(pure = true)
-    public static ArgumentType<Integer> time() {
-        return ArgumentTypes.time();
-    }
+    ArgumentType<Integer> time();
 
     /**
      * Gets an argument type that resolves a time in ticks with a minimum time.
@@ -154,9 +127,7 @@ public final class CustomArgumentTypes {
      */
     @Nonnull
     @Contract(pure = true)
-    public static ArgumentType<Integer> time(final int minTime) {
-        return ArgumentTypes.time(minTime);
-    }
+    ArgumentType<Integer> time(final int minTime);
 
     /**
      * Gets an argument type that resolves a block position.
@@ -165,9 +136,7 @@ public final class CustomArgumentTypes {
      */
     @Nonnull
     @Contract(pure = true)
-    public static ArgumentType<BlockPositionResolver> blockPosition() {
-        return ArgumentTypes.blockPosition();
-    }
+    ArgumentType<BlockPositionResolver> blockPosition();
 
     /**
      * Gets an argument type that resolves a fine position.
@@ -176,30 +145,5 @@ public final class CustomArgumentTypes {
      */
     @Nonnull
     @Contract(pure = true)
-    public static ArgumentType<FinePositionResolver> finePosition() {
-        return ArgumentTypes.finePosition();
-    }
-
-    public interface Manager {
-
-        @Nonnull
-        @Contract(pure = true)
-        ArgumentType<Fraction> fraction();
-
-        @Nonnull
-        @Contract(pure = true)
-        ArgumentType<User> user();
-
-        @Nonnull
-        @Contract(pure = true)
-        ArgumentType<ServerType> server();
-
-        @Nonnull
-        @Contract(pure = true)
-        ArgumentType<TeamRank> teamRank();
-
-        @Nonnull
-        @Contract(pure = true)
-        ArgumentType<Group> group();
-    }
+    ArgumentType<FinePositionResolver> finePosition();
 }
