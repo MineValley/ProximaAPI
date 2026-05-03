@@ -11,8 +11,8 @@ import javax.annotation.Nonnull;
 @RequiredArgsConstructor
 public abstract class ProximaModule extends AbstractModule {
 
-    private final @Nonnull Proxima proxima;
-    private final @Nonnull Command<ProxyUser> command;
+    private static @Nonnull Proxima proxima;
+    private static @Nonnull Command<ProxyUser> command;
 
     /**
      * Gets this modules instance of the {@link Proxima}.
@@ -21,7 +21,7 @@ public abstract class ProximaModule extends AbstractModule {
      */
     @Nonnull
     @Contract(pure = true)
-    public final Proxima proxima() {
+    public static Proxima proxima() {
         return proxima;
     }
 
@@ -32,8 +32,7 @@ public abstract class ProximaModule extends AbstractModule {
      */
     @Nonnull
     @Contract(pure = true)
-    @Override
-    public final Command<ProxyUser> command() {
+    public static Command<ProxyUser> command() {
         return command;
     }
 
