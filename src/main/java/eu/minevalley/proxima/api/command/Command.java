@@ -22,15 +22,16 @@ public interface Command<U extends User> {
     CommandLiteral<U> literal(@Nonnull String name) throws IllegalArgumentException;
 
     /**
-     * Creates a new command argument.
+     * Convenience entry point to create arguments using short helper methods, e.g.
+     * command.argument().onlineUser("spieler");
      *
-     * @param name the name of the argument
-     * @param type the type of the argument
-     * @param <T>  the class of the argument
-     * @return a {@link CommandArgument} object representing the argument
-     * @throws IllegalArgumentException if the name is null or empty, or if the type is null
+     * Implementations should return an {@link eu.minevalley.proxima.api.command.ArgumentBuilder} backed
+     * by their {@link eu.minevalley.proxima.api.command.ArgumentTypes} provider.
+     *
+     * Note: this method is intentionally abstract to force implementors to provide the
+     * ArgumentTypes instance (implementation-specific).
      */
     @Nonnull
     @Contract(pure = true)
-    <T> CommandArgument<U, T> argument(@Nonnull String name, @Nonnull ArgumentType<U> type) throws IllegalArgumentException;
+    ArgumentBuilder<U> argument();
 }
