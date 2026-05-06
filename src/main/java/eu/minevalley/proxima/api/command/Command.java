@@ -32,14 +32,5 @@ public interface Command<U extends User> {
      */
     @Nonnull
     @Contract(pure = true)
-    <T> CommandArgument<U, T> argument(@Nonnull String name, @Nonnull ArgumentType<T> type) throws IllegalArgumentException;
-
-    /**
-     * Gets the interface with all useful command arguments
-     *
-     * @return interface with useful command arguments
-     */
-    @Nonnull
-    @Contract(pure = true)
-    ArgumentTypes argumentTypes();
+    <T> CommandArgument<U, T> argument(@Nonnull String name, @Nonnull ArgumentType<U> type) throws IllegalArgumentException;
 }
