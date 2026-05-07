@@ -20,7 +20,7 @@ public interface CommandBuilder<U extends User, T extends CommandBuilder<U, T>> 
      */
     @Nonnull
     @Contract("_ -> this")
-    T then(@Nonnull CommandBuilder<U, T> branch) throws IllegalArgumentException;
+    T then(@Nonnull CommandBuilder<U, ?> branch) throws IllegalArgumentException;
 
     /**
      * Sets whether the command can be executed by a given user.
