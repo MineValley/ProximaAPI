@@ -6,7 +6,6 @@ import eu.minevalley.proxima.api.corporation.Group;
 import eu.minevalley.proxima.api.corporation.company.*;
 import eu.minevalley.proxima.api.discord.EmbeddedMessage;
 import eu.minevalley.proxima.api.discord.Webhook;
-import eu.minevalley.proxima.api.event.EventListener;
 import eu.minevalley.proxima.api.messaging.types.DebugType;
 import eu.minevalley.proxima.api.phone.Telephone;
 import eu.minevalley.proxima.api.team.Team;
@@ -14,7 +13,6 @@ import eu.minevalley.proxima.api.timing.Reminder;
 import eu.minevalley.proxima.api.timing.RepeatingTimer;
 import eu.minevalley.proxima.api.timing.Timer;
 import eu.minevalley.proxima.api.user.User;
-import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Contract;
 
@@ -459,26 +457,6 @@ public interface Proxima {
             throws IllegalArgumentException {
         return createReminder(hours, minutes, callback, DayOfWeek.values());
     }
-
-    /**
-     * Registers an event listener.
-     *
-     * @param cls      class of the event
-     * @param listener listener to register
-     * @throws IllegalArgumentException if the event class or listener is null
-     */
-    void registerListener(@Nonnull Class<? extends Event> cls, @Nonnull EventListener<? extends Event> listener)
-            throws IllegalArgumentException;
-
-    /**
-     * Unregisters an event listener.
-     *
-     * @param cls      class of the event
-     * @param listener listener to unregister
-     * @throws IllegalArgumentException if the event class or listener is null
-     */
-    void unregisterListener(@Nonnull Class<? extends Event> cls, @Nonnull EventListener<? extends Event> listener)
-            throws IllegalArgumentException;
 
     /**
      * Creates a new Discord Webhook.
