@@ -1,5 +1,6 @@
 package eu.minevalley.proxima.api;
 
+import com.velocitypowered.api.proxy.ProxyServer;
 import eu.minevalley.proxima.api.command.Command;
 import eu.minevalley.proxima.api.user.ProxyUser;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,8 @@ public abstract class ProximaModule extends AbstractModule {
 
     private static @Nonnull Proxima proxima;
     private static @Nonnull Command<ProxyUser> command;
+    private static @Nonnull ProxyServer server;
+    private static @Nonnull Object instance;
 
     /**
      * Gets this modules instance of the {@link Proxima}.
@@ -34,6 +37,28 @@ public abstract class ProximaModule extends AbstractModule {
     @Contract(pure = true)
     public static Command<ProxyUser> command() {
         return command;
+    }
+
+    /**
+     * Gets this modules instance of the Proxima ProxyServer
+     *
+     * @return this modules instance of the ProxyServer
+     */
+    @Nonnull
+    @Contract(pure = true)
+    public static ProxyServer server() {
+        return server;
+    }
+
+    /**
+     * Gets this modules instance of the Proxima Plugin instance
+     *
+     * @return this modules instance of Proxima
+     */
+    @Nonnull
+    @Contract(pure = true)
+    public static Object instance() {
+        return instance;
     }
 
     /**
