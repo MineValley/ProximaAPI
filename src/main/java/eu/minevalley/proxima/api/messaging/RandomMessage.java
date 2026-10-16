@@ -18,7 +18,7 @@ public record RandomMessage(@Nonnull WeightedMessage... messages) {
         if (messages.length == 0) {
             throw new IllegalStateException("No messages available to choose from.");
         }
-        return messages[RANDOM.nextInt()].message;
+        return messages[RANDOM.nextInt(messages.length)].message;
     }
 
     public record WeightedMessage(@Nonnull String message, @Nonnegative int weight) {
