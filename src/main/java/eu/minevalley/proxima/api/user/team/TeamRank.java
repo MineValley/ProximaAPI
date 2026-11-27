@@ -11,40 +11,35 @@ public enum TeamRank {
     /**
      * Members of the "Support"-group.
      */
-    SUPPORT(true),
+    SUPPORT,
 
     /**
      * Members of the "Moderation"-group.
      */
-    MODERATION(true),
+    MODERATION,
 
     /**
      * Members of the "Sonstiges"-group.
      */
-    MISCELLANEOUS(false),
+    MISCELLANEOUS,
 
     /**
      * Members of the "Bauteam"-group.
      */
-    BUILDING(false),
+    BUILDING,
 
     /**
      * Members of the "Entwicklung"-group.
      */
-    DEVELOPMENT(false),
+    DEVELOPMENT,
 
     /**
      * Members of the "Administration"-group.
      */
-    ADMINISTRATION(true),
+    ADMINISTRATION,
 
     /**
      * Members of the "Serverleitung"-group.
      */
-    SERVER_LEAD(true);
-
-    /**
-     * Boolean that says whether the teamler is in support-service by default when joining the server.
-     */
-    private final boolean supportOnJoin;
+    SERVER_LEAD;
 }
