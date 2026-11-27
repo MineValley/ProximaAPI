@@ -49,6 +49,14 @@ public interface TeamMember extends ProxyUser {
     boolean isDisplayedAsTeamler();
 
     /**
+     * Gets whether the user is marked as server-operator (!= OP-permission)
+     *
+     * @return true, if the user is marked as server-operator
+     */
+    @Contract(pure = true)
+    boolean isOperator();
+
+    /**
      * Gets whether the user is allowed to use a general-key
      *
      * @return true, if the player is allowed to use a general-key
@@ -78,14 +86,6 @@ public interface TeamMember extends ProxyUser {
      * Lets the user leave the support-service.
      */
     void leaveSupportService() throws IllegalStateException;
-
-    /**
-     * Gets whether the user is marked as server-operator (!= OP-permission)
-     *
-     * @return true, if the user is marked as server-operator
-     */
-    @Contract(pure = true)
-    boolean isOperator();
 
     /**
      * Gets whether the user is in support-service
