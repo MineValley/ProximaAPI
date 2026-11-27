@@ -57,14 +57,6 @@ public interface TeamMember extends ProxyUser {
     boolean isAllowedToUseGeneralKey();
 
     /**
-     * Gets whether the user is using a general-key at the moment, by checking the item in his hand. If he is using a general-key without the permission to do, his key gets removed automatically.
-     *
-     * @return true, if the player is using a general-key
-     */
-    @Contract(pure = true)
-    boolean isUsingGeneralKey();
-
-    /**
      * Lets the user leave the team-service.
      */
     void leaveTeamService() throws IllegalStateException;
