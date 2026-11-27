@@ -10,14 +10,6 @@ import javax.annotation.Nonnull;
 public interface TeamMember extends ProxyUser {
 
     /**
-     * Gets whether the player is team-member with the plus-rank.
-     *
-     * @return true, if the user is team-plus-member
-     */
-    @Contract(pure = true)
-    boolean isTeamPlus();
-
-    /**
      * Gets the team-rank of this user.
      *
      * @return users team-rank
