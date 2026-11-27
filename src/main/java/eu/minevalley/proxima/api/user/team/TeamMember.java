@@ -1,7 +1,7 @@
 package eu.minevalley.proxima.api.user.team;
 
 import eu.minevalley.proxima.api.user.ProxyUser;
-import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
 import org.jetbrains.annotations.Contract;
 
 import javax.annotation.Nonnull;
@@ -21,7 +21,7 @@ public interface TeamMember extends ProxyUser {
     /**
      * Gets whether the user has any of the listed team-ranks.
      *
-     * @param ranks list of team-ranks to be checked for
+     * @param ranks team-ranks to be checked for
      * @return true, if the user has one of the ranks
      */
     @Contract(pure = true)
@@ -29,13 +29,13 @@ public interface TeamMember extends ProxyUser {
 
     /**
      * Gets the team rank name.
-     * If the user has a custom team rank name, it is returned. Otherwise, the default name of it's rank is returned.
+     * If the user has a custom team rank name, it is returned. Otherwise, the default name of its rank is returned.
      *
-     * @return [custom] team rank name
+     * @return team rank name as TextComponent
      */
     @Nonnull
     @Contract(pure = true)
-    Component getTeamRankName();
+    TextComponent getTeamRankName();
 
     /**
      * Sometimes a player is assigned a team rank to grant them permission or access.
@@ -43,7 +43,7 @@ public interface TeamMember extends ProxyUser {
      * they appear representative of the project and players may assume they have the permission and knowledge
      * to guide other players. Therefore, the rank assigned to the player can be hidden.
      *
-     * @return true, if this user is displayed as team member in chat, tab list, etc.
+     * @return true, if this user is displayed as team member in chat, tab list, etc. (default)
      */
     @Contract(pure = true)
     boolean isDisplayedAsTeamler();
