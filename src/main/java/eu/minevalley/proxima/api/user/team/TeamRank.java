@@ -9,11 +9,6 @@ import lombok.RequiredArgsConstructor;
 public enum TeamRank {
 
     /**
-     * Members of the "Test-Support"-group.
-     */
-    T_SUPPORT(true),
-
-    /**
      * Members of the "Support"-group.
      */
     SUPPORT(true),
